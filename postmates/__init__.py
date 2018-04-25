@@ -1,1 +1,1 @@
-from postmates import *
+from .postmates import *
