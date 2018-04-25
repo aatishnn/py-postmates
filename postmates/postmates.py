@@ -146,11 +146,11 @@ class Delivery(object):
     def create(self):
         if not self.pickup._is_valid():
             raise PostmatesAPIException(
-                'Pickup is missing required attributes\n %s' % pickup)
+                'Pickup is missing required attributes\n %s' % self.pickup)
 
         if not self.dropoff._is_valid():
             raise PostmatesAPIException(
-                'Dropoff is missing required attributes\n %s' % dropoff)
+                'Dropoff is missing required attributes\n %s' % self.dropoff)
 
         if self.status != Delivery.STATUS_UNSUBMITTED:
             raise PostmatesAPIException(
