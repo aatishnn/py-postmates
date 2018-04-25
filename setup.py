@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(
-    name='pypostmates',
+    name='py-postmates',
     version='0.1',
     description='Postmates API Wrapper',
     url='http://github.com/aatishnn/py-postmates',
