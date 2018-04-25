@@ -6,7 +6,7 @@ A simple Python client for the Postmates API.
 
 ## Setup
 
-    $ pip install git+https://github.com/aatishnn/py-postmates.git#egg=postnates
+    $ pip install git+https://github.com/aatishnn/py-postmates.git#egg=postmates
 
 ## Usage
 
