@@ -15,7 +15,7 @@ Create an instance of the API
 ```python
 import postmates as pm
 
-api = pm.PostmatesAPI(<YOUR_CUSTOMER_ID>, <YOUR_API_KEY>)
+api = pm.PostmatesAPI(<YOUR_API_KEY>, <YOUR_CUSTOMER_ID>)
 ```
 
 Create some locations and get a quote for a delivery.
