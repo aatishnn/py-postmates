@@ -1,15 +1,12 @@
 py-postmates
 ============
 
-Hi!
-
+Forked from far33d/py-postmates . 
 A simple Python client for the Postmates API.
 
 ## Setup
 
-You may need to install the security package extras for `requests`:
-
-    $ pip install requests[security]
+    $ pip install git+https://github.com/aatishnn/py-postmates.git#egg=postnates
 
 ## Usage
 
