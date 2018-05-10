@@ -9,6 +9,11 @@
 /*.egg-info
 /*.egg
 
+.eggs/
+.pytest_cache/
+
+
 venv/
 env/
 .env/
+**/vcr_cassettes/

@@ -2,8 +2,7 @@ import requests
 from datetime import datetime
 from dateutil import tz
 
-__all__ = ['PostmatesAPI', 'PostmatesAPIException', 'DeliveryQuote',
-           'Delivery', 'Location']
+from .exceptions import APIException, ClientException
 
 
 class PostmatesAPI(object):
@@ -16,6 +15,9 @@ class PostmatesAPI(object):
         self.version = version
 
     def post_delivery_quote(self, pickup_address, dropoff_address):
+        if not (pickup_address and dropoff_address):
+            raise ClientException('address parameters are required')
+
         url = self._delivery_quote_url()
 
         params = {'pickup_address': pickup_address,
@@ -73,10 +75,10 @@ class PostmatesAPI(object):
             response = requests.get(url, params=data,
                                     auth=(self.api_key, ''))
         else:
-            raise PostmatesAPIException('only gets and posts, yo')
+            raise ClientException('only gets and posts, yo')
 
         if not response.ok:
-            raise PostmatesAPIException(response.json())
+            raise APIException(response.json())
 
         return response.json()
 
@@ -145,19 +147,19 @@ class Delivery(object):
 
     def create(self):
         if not self.pickup._is_valid():
-            raise PostmatesAPIException(
+            raise ClientException(
                 'Pickup is missing required attributes\n %s' % self.pickup)
 
         if not self.dropoff._is_valid():
-            raise PostmatesAPIException(
+            raise ClientException(
                 'Dropoff is missing required attributes\n %s' % self.dropoff)
 
         if self.status != Delivery.STATUS_UNSUBMITTED:
-            raise PostmatesAPIException(
+            raise ClientException(
                 'Cannot create a delivery that has already been submitted')
 
         if self.quote and self.quote.expired:
-            raise PostmatesAPIException(
+            raise ClientException(
                 'Attempting to submit expired delivery quote')
 
         delivery_data = self.api.post_delivery_request(self)
@@ -173,7 +175,7 @@ class Delivery(object):
     def cancel(self):
         if self.status not in (Delivery.STATUS_PENDING,
                                Delivery.STATUS_PICKUP):
-            raise PostmatesAPIException(
+            raise ClientException(
                 'Can only cancel deliveries not yet picked up')
 
         delivery_data = self.api.post_cancel_delivery(self.delivery_id)
@@ -264,18 +266,6 @@ class Location(object):
         post_data['%s_notes' % prefix] = self.notes
 
         return post_data
-
-
-class PostmatesAPIException(Exception):
-
-    def __init__(self, message):
-        if isinstance(message, str):
-            super(PostmatesAPIException, self).__init__(message)
-        else:
-            super(PostmatesAPIException,
-                  self).__init__(message['message'])
-            self.kind = message['kind']
-            self.code = message['code']
 
 
 def _parse_date(d):

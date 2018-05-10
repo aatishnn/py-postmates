@@ -8,7 +8,11 @@ setup(
     packages=['postmates'],
     license='MIT',
     install_requires=[
-            'requests[security]',
+        'requests',
+        'requests[security]',
+        'python-dateutil'
     ],
+    setup_requires=['pytest-runner'],
+    tests_requires=['pytest'],
     zip_safe=False
 )
