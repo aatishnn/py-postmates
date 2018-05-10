@@ -12,7 +12,6 @@ setup(
         'requests[security]',
         'python-dateutil'
     ],
-    setup_requires=['pytest-runner'],
-    tests_requires=['pytest'],
+    setup_requires=['pytest-runner', 'vcrpy', 'pytest'],
     zip_safe=False
 )
