@@ -144,6 +144,7 @@ class Delivery(object):
         self.fee = None
         self.currency = None
         self.courier = None
+        self.tracking_url = None
 
     def create(self):
         if not self.pickup._is_valid():
@@ -191,6 +192,7 @@ class Delivery(object):
         self.fee = data['fee']
         self.currency = data['currency']
         self.courier = data['courier']
+        self.tracking_url = data['tracking_url']
 
     def post_data(self):
 
