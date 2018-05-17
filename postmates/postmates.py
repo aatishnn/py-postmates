@@ -127,13 +127,14 @@ class Delivery(object):
     STATUS_CANCELED = 'canceled'
     STATUS_DELIVERED = 'delivered'
 
-    def __init__(self, api, manifest, pickup, dropoff, quote=None):
+    def __init__(self, api, manifest, pickup, dropoff, quote=None, quote_id=None):
 
         self.api = api
         self.manifest = manifest
         self.pickup = pickup
         self.dropoff = dropoff
         self.quote = quote
+        self.quote_id = quote_id
 
         self.delivery_id = None
         self.status = Delivery.STATUS_UNSUBMITTED
@@ -204,6 +205,9 @@ class Delivery(object):
 
         if self.quote:
             post_data['quote_id'] = self.quote.quote_id
+        
+        if self.quote_id:
+            post_data['quote_id] = self.quote_id
 
         return post_data
 
