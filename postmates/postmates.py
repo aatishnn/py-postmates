@@ -207,7 +207,7 @@ class Delivery(object):
             post_data['quote_id'] = self.quote.quote_id
         
         if self.quote_id:
-            post_data['quote_id] = self.quote_id
+            post_data['quote_id'] = self.quote_id
 
         return post_data
 
